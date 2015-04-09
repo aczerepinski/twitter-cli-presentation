@@ -1,5 +1,5 @@
 class Student
-  attr_accessor :name, :github, :twitter #=> name, name=
+  attr_accessor :name, :github, :twitter, :tagline #=> name, name=
 
   def initialize(url)
     @doc = Nokogiri::HTML(open("http://web0415.students.flatironschool.com/#{url}"))
@@ -17,6 +17,11 @@ class Student
     scrape_name
     scrape_twitter
     scrape_github
+    scrape_tagline
+  end
+
+  def scrape_tagline
+    @tagline = @doc.search("div.textwidget h3").text
   end
 
   def scrape_name
